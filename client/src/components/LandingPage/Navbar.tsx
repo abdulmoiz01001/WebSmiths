@@ -3,10 +3,12 @@ import { Link } from "react-scroll";
 import Button from "../LandingPage/layouts/Button";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import Contact from "../LandingPage/models/Contact";
-
+import { Link as RouterLink } from "react-router-dom"; 
+import { useStore } from '@/store/store';
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const { user } : any = useStore();
 
   const handleChange = () => {
     setMenu(!menu);
@@ -31,7 +33,7 @@ const Navbar = () => {
         <div className=" flex flex-row justify-between p-5 md:px-32 px-5 bg-backgroundColor shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
           <div className=" flex flex-row items-center cursor-pointer">
             <Link to="home" spy={true} smooth={true} duration={500}>
-              <h1 className=" text-2xl font-semibold">WellnessVista.</h1>
+              <h1 className=" text-2xl font-semibold">Hospitals.</h1>
             </Link>
           </div>
 
@@ -82,6 +84,14 @@ const Navbar = () => {
               Blog
             </Link>
           </nav>
+       {
+        user && <RouterLink
+        to="/register" className="hover:text-hoverColor transition-all cursor-pointer">
+Register
+</RouterLink>
+       }   
+       
+        
 
           
 
