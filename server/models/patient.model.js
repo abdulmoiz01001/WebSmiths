@@ -7,6 +7,10 @@ const patientSchema = new mongoose.Schema({
     ref: 'User', 
     required: true 
   },  // Refers to the user who is the patient
+  profileImg:{
+    type: String,
+    required: true
+  },
   dob: { type: Date, required: true },
   gender: { type: String, enum: ['male', 'female', 'other'], required: true },
   contactInfo: {

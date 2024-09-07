@@ -4,6 +4,7 @@ const express = require('express');
 const cookieParser = require("cookie-parser");
 const UserRoutes = require('./routes/user.routes');
 const adminRoutes = require('./routes/admin.routes');
+const patientRoutes = require('./routes/patient.routes');
 const cors = require('cors');
 const expressLayout = require("express-ejs-layouts");
 const app = express();
@@ -39,6 +40,7 @@ app.set("layout", './layout/main');
 app.set('view engine', "ejs");
 
 app.use("/api", UserRoutes);
+app.use('/api',patientRoutes)
 // app.use("/api", adminRoutes);
 // app.use("/api", doctorRoutes);
 
