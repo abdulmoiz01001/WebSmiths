@@ -98,9 +98,19 @@ if(!id) return res.status(400).send("ID is required")
 
 const bookAppointment = async (req, res) => {
   try {
-    const { patientId, doctorId, dateTime, payment } = req.body;
+    const {  doctorId, dateTime, payment } = req.body;
     // console.log(patientId, doctorId, dateTime, payment);
     
+    const token = req.cookies.token;
+    if (!token) {
+      return res.status(401).json({ error: 'Authentication token is missing' });
+    }
+
+    const decoded = verifyToken(token);
+    if (!decoded) {
+      return res.status(401).json({ error: 'Authentication error' });
+    }
+    const patientId = decoded.id;
     // Check if the patient exists
     const patient = await Patient.findById(patientId);
     if (!patient) {
@@ -140,13 +150,18 @@ const bookAppointment = async (req, res) => {
         method: payment.method,
         status: "pending",
         paymentGateway: payment.method === 'card' ? 'Stripe' : 'Cash'
-      },
-      
+      }
     });
 
     // Save the appointment
     await appointment.save();
-
+    const doctorToSent = await Doctor.findById(doctorId);
+    doctorToSent.notifications.push({
+      type: 'new-appointment',
+      message: `${patient.name} has booked an appointment with you.`,
+      sender: patient._id,
+      
+    })
     // Send success response
     res.status(201).json({ message: 'Appointment booked successfully', appointment , client_secret:paymentIntent.client_secret });
 
