@@ -3,7 +3,9 @@ import React from 'react'
 const HomeLayout = () => {
   return (
     <div>
-       Home Layout
+        <h1 className="text-3xl text-center font-bold underline">
+     Layout
+    </h1>
     </div>
   )
 }
