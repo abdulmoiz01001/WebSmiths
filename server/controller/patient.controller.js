@@ -8,6 +8,8 @@ const moment = require('moment');
 const sendEmail = require('../utilies/sendEmail');
 const { registerValidation, loginValidation } = require('../utilies/Validator')
 const { generateOTP, verifyOTP, storeOTP, storeAccountVerificationOTP } = require('../utilies/otpGenerator')
+const fs = require('fs');
+const path = require('path');
 
 const createPatient = async (req, res) => {
     try {
@@ -15,7 +17,7 @@ const createPatient = async (req, res) => {
   
       // Find the user by email
       const user = await User.findOne({ email });
-      const filePath = req.file.path;
+      const filePath = req.file?.path;
       if (!filePath) {
         return res.status(400).json({ error: 'Profile image is required' });
       }
@@ -30,6 +32,13 @@ const createPatient = async (req, res) => {
             return res.status(500).json({ error: 'Failed to upload image' });
           }
       
+          fs.unlink(filePath, (err) => {
+            if (err) {
+              console.error('Error deleting temp file:', err);
+            } else {
+              console.log('Temp file deleted successfully');
+            }
+          });
           const profileImg = result.secure_url;
       
         const userId = user._id;
