@@ -11,29 +11,42 @@ import PatientsPage from "./pages/PatientsPage";
 import AppointmentsPage from "./pages/AppointmentsPage";
 import RegistrationRequestsPage from "./pages/RegistrationRequestsPage";
 import MedicalRecordsPage from "./pages/MedicalRecordsPage";
+import DoctorDescription from "./components/DoctorDecription";
+import AllDoctorsComp from "./components/AllDoctorComp";
+import PaymentPage from "./pages/PaymentPage";
+
 
 function App() {
 
   return (
     <>
-    <BrowserRouter>
-    <Routes>
-      <Route path="/otp-verify" element={<OtpVerifyPage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path='/register' element={<RegistrationPage />} />
-      <Route path="/" element={<HomeLayout />} >
-      </Route>
-      <Route path="/admin" element={<AdminLayout />} >
-      <Route path="statistics" element={<StatisticsPage />} />
-      <Route path="doctors" element={<DoctorsPage />} />
-      <Route path="patients" element={<PatientsPage />} />
-      <Route path="appointments" element={<AppointmentsPage />} />
-      <Route path="registration-Requests" element={<RegistrationRequestsPage />} />
-      <Route path="medical-records" element={<MedicalRecordsPage />} />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/otp-verify" element={<OtpVerifyPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path='/register' element={<RegistrationPage />} />
+          <Route path="/doctors" element={<AllDoctorsComp />} />
+          <Route path="/payment" element={<PaymentPage />} />
+          <Route path="/:id" element={<DoctorDescription />} />     
+           <Route path="/" element={<HomeLayout />} >
+            <Route path="/doctors" element={<AllDoctorsComp />} />
+            <Route path="/payment" element={<PaymentPage />} />
+            <Route path="/:id" element={<DoctorDescription />} />   
 
-      </Route>
-    </Routes>
-    </BrowserRouter>
+               </Route>
+          <Route path="/admin" element={<AdminLayout />} >
+
+            <Route path="statistics" element={<StatisticsPage />} />
+            <Route path="doctors" element={<DoctorsPage />} />
+            <Route path="patients" element={<PatientsPage />} />
+            <Route path="appointments" element={<AppointmentsPage />} />
+            <Route path="registration-Requests" element={<RegistrationRequestsPage />} />
+            <Route path="medical-records" element={<MedicalRecordsPage />} />
+
+          </Route>
+
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }

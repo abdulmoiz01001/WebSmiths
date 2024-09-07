@@ -6,7 +6,7 @@ import { useLogin } from '@/hooks/useLoginUserHook'; // Adjusted import based on
 import { apiClient } from '@/lib/apiClient';
 import { LOGIN_ROUTE } from '@/utils/constants';
 import { toast } from 'sonner';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 // Define types for form values and errors
 interface FormValues {
@@ -121,7 +121,9 @@ const LoginComp = () => {
             <Button type="submit" className="w-[48%] active:scale-95 cursor-pointer" disabled={loading}>
               {loading ? 'Logging in...' : 'Login'}
             </Button>
-            <Label className="text-sm cursor-pointer">Forgot Password?</Label>
+          <Link to="/signup" >
+            <Label className="text-sm cursor-pointer">Sign Up</Label>
+          </Link>
           </div>
         </form>
       </div>
