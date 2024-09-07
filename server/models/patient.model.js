@@ -7,16 +7,18 @@ const patientSchema = new mongoose.Schema({
     ref: 'User', 
     required: true 
   },  // Refers to the user who is the patient
+  age:{
+    type: Number,},
   profileImg:{
     type: String,
     required: true
   },
-  dob: { type: Date, required: true },
+  dob: { type: String, required: true },
   gender: { type: String, enum: ['male', 'female', 'other'], required: true },
-  contactInfo: {
-    phone: { type: String, required: true },
-    address: { type: String }
-  },
+  
+    phone: { type: String},
+  
+  address: { type: String },
   medicalRecords: [{
     type: Schema.Types.ObjectId, 
     ref: 'MedicalRecord'  // Assuming a MedicalRecord model exists
