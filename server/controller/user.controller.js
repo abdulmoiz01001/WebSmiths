@@ -6,7 +6,6 @@ const bcrypt = require("bcrypt")
 const  sendEmail  = require('../utilies/sendEmail');
 const {registerValidation,loginValidation} = require('../utilies/Validator')
 const {generateOTP,verifyOTP,storeOTP,storeAccountVerificationOTP} = require('../utilies/otpGenerator')
-const {loginSchema} = require('../utilies/Validator')
 
 // Controller for registering a new user
 const registerUser = async (req, res) => {
@@ -79,7 +78,7 @@ if(!otp || !email){
 }
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
-  const { error } = loginSchema.validate({ email, password });
+  const { error } = loginValidation({ email, password });
   
   if (error) {
     console.log(error);
@@ -158,6 +157,7 @@ const deleteUser = async(req,res)=>{
   console.log(user.userType);
   
   if( user.userType=='admin'){
+
  const user = await User.findByIdAndDelete({_id:id})
       res.status(200).send(user);
     }
@@ -193,6 +193,9 @@ const verifyResetOTP = async(req,res)=>{
 const resetPassword = async(req,res)=>{
     try {
       const {email,password,ConfirmPassword} = req.body
+      if(!email || !password || !ConfirmPassword){
+        return  res.status(404).json({Error:"Enter email and password and confirm password"})
+      }
       const userEmail = await User.find({email:email})
       const user = await User.findById(userEmail[0]._id)
       if(!userEmail){
