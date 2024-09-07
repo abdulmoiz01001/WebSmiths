@@ -15,6 +15,7 @@ const PatientForm = ({ nextStep, prevStep, setFormData, formData }: { nextStep: 
       initialValues={formData}
       validationSchema={validationSchema}
       onSubmit={(values) => {
+        console.log('values', values);
         setFormData({ ...formData, ...values });
         nextStep();
       }}

@@ -17,14 +17,6 @@
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "axios": "^1.7.7",
-<<<<<<< HEAD
-    "formik": "^2.4.6",
-    "framer-motion": "^11.5.4",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.26.1",
-    "yup": "^1.4.0"
-=======
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "formik": "^2.4.6",
@@ -40,7 +32,7 @@
     "tailwindcss-animate": "^1.0.7",
     "yup": "^1.4.0",
     "zustand": "^4.5.5"
->>>>>>> c7609eab09420d92e883d1ad901c93c4ca5fcc5e
+
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",

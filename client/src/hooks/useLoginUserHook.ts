@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { LOGIN_ROUTE } from '@/utils/constants'; 
 import { useNavigate } from "react-router-dom";
 
-export const useLoginUserHook = async (values: any) => {
+export const useLogin = async (values: any) => {
     const navigate = useNavigate();
     try {
       console.log(values);
@@ -24,6 +24,7 @@ export const useLoginUserHook = async (values: any) => {
       }
       // Add your login logic here
     } catch (error) {
+        toast.error('Failed to login user');
       toast.error('Failed to login user');
       console.error(error);
     }

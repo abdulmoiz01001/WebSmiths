@@ -8,11 +8,13 @@ const PersonalInfoForm = ({
   prevStep,
   setFormData,
   formData,
+  submitForm,
 }: {
   nextStep: any;
   prevStep: any;
   setFormData: any;
   formData: any;
+  submitForm: any;
 }) => {
   const [imagePreview, setImagePreview] = useState(formData.image || '');
 
@@ -39,12 +41,16 @@ const PersonalInfoForm = ({
     <Formik
       initialValues={formData}
       validationSchema={validationSchema}
-      onSubmit={(values) => {
-        setFormData({ ...formData, ...values });
+      onSubmit={ async (values) => {
+         console.log("values",values);
+         let data : any = { ...formData, ...values }
+         console.log("data",data);
+         setFormData(data);
+         await  submitForm(data);
         nextStep();
       }}
     >
-      {({ setFieldValue }) => (
+      {({ setFieldValue , values }) => (
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -156,7 +162,8 @@ const PersonalInfoForm = ({
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                type="submit"
+                // type="submit"
+                onClick={async() => await submitForm(values)}
                 className="bg-gradient-to-r from-blue-400 to-blue-600 text-white py-2 px-6 rounded-md shadow-lg hover:shadow-xl transition-transform"
               >
                 Next

@@ -6,10 +6,13 @@ import PersonalInfoForm from "../components/PersonalInfoFormComp";
 import UserTypeForm from "../components/UserTypeFormComp";
 import RegistrationSuccess from "../components/RegistrationSuccessComp";
 import { useNavigate } from "react-router-dom";
+import useRegisterUserHook from "@/hooks/useRegisterUserHook";
 
 const RegistrationComp = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const navigate = useNavigate();
+
+  const { signup } : any = useRegisterUserHook();
 
   const [formData, setFormData] = useState({
     username: '',
@@ -44,8 +47,9 @@ const RegistrationComp = () => {
     }
   };
 
-  const submitForm = () => {
+  const submitForm = async (data: any) => {
     console.log('Form Submitted', formData);
+    await signup(data);
     nextStep();
   };
 
@@ -57,9 +61,9 @@ const RegistrationComp = () => {
       component:
         formData.role === 'doctor' ?
         <DoctorForm nextStep={nextStep} prevStep={prevStep} setFormData={setFormData} formData={formData} /> :
-        <PatientForm nextStep={nextStep} prevStep={prevStep} setFormData={setFormData} formData={formData} />
+        <PatientForm nextStep={nextStep}  prevStep={prevStep} setFormData={setFormData} formData={formData} />
     },
-    { label: "Personal Info", component: <PersonalInfoForm nextStep={submitForm} prevStep={prevStep} setFormData={setFormData} formData={formData} /> },
+    { label: "Personal Info", component: <PersonalInfoForm submitForm={submitForm} nextStep={submitForm} prevStep={prevStep} setFormData={setFormData} formData={formData} /> },
     { label: "Registration Success", component: <RegistrationSuccess formData={formData} /> }
   ];
 

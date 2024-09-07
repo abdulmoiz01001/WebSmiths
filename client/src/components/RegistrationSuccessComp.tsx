@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const RegistrationSuccess = ({ formData }: { formData: any }) => {
@@ -8,6 +8,16 @@ const RegistrationSuccess = ({ formData }: { formData: any }) => {
     navigate('/');
   };
 
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      navigate('/otp-verify');
+    }, 3000); // 3000 milliseconds = 3 seconds
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(interval);
+  }, [navigate]);
+  
   return (
     <div className="w-full p-8 bg-white shadow-lg rounded-lg flex flex-col items-center justify-center space-y-4">
       <h2 className="text-2xl font-bold text-center text-green-500">Registration Successful!</h2>

@@ -17,6 +17,7 @@ const UserForm = ({ nextStep, prevStep, setFormData, formData }: { nextStep: any
       initialValues={formData}
       validationSchema={validationSchema}
       onSubmit={(values) => {
+        console.log('values', values);
         setFormData({ ...formData, ...values });
         nextStep();
       }}

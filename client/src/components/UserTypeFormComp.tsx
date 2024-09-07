@@ -21,6 +21,7 @@ const UserTypeForm = ({
       initialValues={formData}
       validationSchema={validationSchema}
       onSubmit={(values) => {
+        console.log('values', values);
         setFormData({ ...formData, ...values }); // Save role in formData
         nextStep();
       }}
