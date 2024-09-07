@@ -7,9 +7,10 @@ export default {
 	],
 	theme: {
 	  screens: {
-		// Change `md`, `lg`, `xl`, and `2xl` accordingly
-		'sm': {'min': '640px', 'max': '767px'},
-		'md': {'min': '200px', 'max': '1023px'}, // Updated md breakpoint
+		  // Change `md`, `lg`, `xl`, and `2xl` accordingly
+		  'xsm': {'min': '240px', 'max': '640px'},
+		  'sm': {'min': '640px', 'max': '767px'},
+		'md': {'min': '900px', 'max': '1023px'}, // Updated md breakpoint
 		'lg': {'min': '1024px', 'max': '1279px'}, // Updated according to md change
 		'xl': {'min': '1280px', 'max': '1535px'}, // Updated accordingly
 		'2xl': {'min': '1536px'}, // Updated accordingly

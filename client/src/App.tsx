@@ -14,6 +14,8 @@ import AppointmentsPage from "./pages/AppointmentsPage";
 import RegistrationRequestsPage from "./pages/RegistrationRequestsPage";
 import MedicalRecordsPage from "./pages/MedicalRecordsPage";
 import DoctorDescription from "./components/DoctorDecription";
+import AllDoctorsComp from "./components/AllDoctorComp";
+import PaymentPage from "./pages/PaymentPage";
 
 
 function App() {
@@ -25,6 +27,8 @@ function App() {
       <Route path="/otp-verify" element={<OtpVerifyPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path='/register' element={<RegistrationPage />} />
+      <Route path="/doctors" element={<AllDoctorsComp/>} />
+      <Route path="/payment" element={<PaymentPage/>} />
       <Route path="/:id" element={<DoctorDescription/>} />
       <Route path="/" element={<HomeLayout />} >
       </Route>

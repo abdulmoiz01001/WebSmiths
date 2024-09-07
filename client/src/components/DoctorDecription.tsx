@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion"; // Import motion for animations
 
 // Mock data for demonstration
@@ -62,55 +62,57 @@ const mockDoctors = [
 
 const DoctorDescription = () => {
   const { id } = useParams(); // Get the doctor ID from the URL
+  const navigate = useNavigate(); // Initialize useNavigate
   const doctor = mockDoctors.find((doc) => doc.userId === id); // Find the doctor by ID
 
   if (!doctor) return <p>Doctor not found.</p>; // Handle case where doctor is not found
 
   const handleGetAppointment = () => {
-    alert(`Appointment booked with ${doctor.name}`);
+    navigate("/payment"); // Navigate to the payment page
   };
 
   return (
     <motion.div
-      className="min-h-screen flex flex-col justify-center items-center bg-white text-black p-5"
-      initial={{ opacity: 0, y: -50 }}
+      className="min-h-screen flex flex-col items-center justify-center bg-gray-50 text-gray-900 p-6 md:p-12"
+      initial={{ opacity: 0, y: -30 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 50 }} // Animation on exit
+      exit={{ opacity: 0, y: 30 }} // Animation on exit
+      transition={{ duration: 0.5 }}
     >
-      <div className="container mx-auto flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-8">
+      <div className="container mx-auto flex flex-col md:flex-row lg:flex-row xl:flex-row 2xl:flex-row items-center bg-white shadow-md rounded-lg overflow-hidden">
         {/* Doctor Image */}
         <motion.img
           src={doctor.img}
           alt={doctor.name}
-          className="rounded-lg h-56 w-56 object-cover transform hover:scale-110 transition-transform duration-300 shadow-lg"
+          className="w-full md:w-64 h-full lg:w-64 xl:w-[520px] object-cover rounded-t-lg md:rounded-t-sm lg:rounded-l-lg lg:rounded-t-sm xl:rounded-t-sm 2xl:rounded-l-sm md:rounded-l-lg transition-transform transform hover:scale-105"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
+          transition={{ duration: 0.5 }}
         />
         {/* Doctor Details */}
-        <div className="text-left md:flex-1">
-          <h1 className="text-4xl font-bold">{doctor.name}</h1>
-          <p className="text-xl mt-2">{doctor.specialization}</p>
-          <p className="mt-2">Phone: {doctor.contactInfo.phone}</p>
-          <p>Address: {doctor.contactInfo.address}</p>
-          <p>Clinic: {doctor.clinicName}</p>
-          <h2 className="mt-4 text-2xl">Appointments</h2>
+        <div className="p-6 md:p-8">
+          <h1 className="text-3xl md:text-4xl font-bold mb-2">{doctor.name}</h1>
+          <p className="text-lg text-gray-700 mb-4">{doctor.specialization}</p>
+          <p className="text-sm text-gray-600 mb-2">Phone: <span className="font-medium">{doctor.contactInfo.phone}</span></p>
+          <p className="text-sm text-gray-600 mb-2">Address: <span className="font-medium">{doctor.contactInfo.address}</span></p>
+          <p className="text-sm text-gray-600 mb-4">Clinic: <span className="font-medium">{doctor.clinicName}</span></p>
+          <h2 className="text-xl font-semibold mb-2">Appointments</h2>
           {doctor.appointments.length > 0 ? (
-            <ul className="list-disc ml-5 mt-2">
+            <ul className="list-disc list-inside mb-4">
               {doctor.appointments.map((appointment, index) => (
-                <li key={index}>
+                <li key={index} className="text-sm text-gray-700">
                   {appointment.date} at {appointment.time} - Patient: {appointment.patient}
                 </li>
               ))}
             </ul>
           ) : (
-            <p>No upcoming appointments.</p>
+            <p className="text-sm text-gray-600">No upcoming appointments.</p>
           )}
           <button
             onClick={handleGetAppointment}
-            className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300"
+            className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
           >
-            Get Appointment
+            Book Appointment
           </button>
           <Link to="/doctors" className="block mt-4 text-blue-500 hover:underline">
             Back to Doctors

@@ -1,24 +1,41 @@
-import React from "react";
-import Button from "../LandingPage/layouts/Button";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Home = () => {
+const HeroSection = () => {
   return (
-    <div className=" min-h-screen flex flex-col justify-center lg:px-32 px-5 text-white bg-[url('assets/img/home.png')] bg-no-repeat bg-cover opacity-90">
-      <div className=" w-full lg:w-4/5 space-y-5 mt-10">
-        <h1 className="text-5xl font-bold leading-tight">
-          Empowering Health Choices for a Vibrant Life Your Trusted..
-        </h1>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam magnam
-          omnis natus accusantium quos. Reprehenderit incidunt expedita
-          molestiae impedit at sequi dolorem iste sit culpa, optio voluptates
-          fugiat vero consequatur?
-        </p>
-
-        <Button title="See Services" />
+    <section className="relative bg-gray-800 text-white overflow-hidden">
+      <div className="absolute inset-0">
+        <img
+          src="path_to_hospital_image.jpg" // Replace with your image path
+          alt="Hospital"
+          className="w-full h-full object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-black opacity-50"></div>
       </div>
-    </div>
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 py-12 md:px-12">
+        <h1 className="text-4xl md:text-5xl font-bold leading-tight text-center mb-4">
+          Transforming Healthcare Management
+        </h1>
+        <p className="text-lg md:text-xl text-center mb-6">
+          Streamline hospital operations, enhance patient care, and improve efficiency with our comprehensive management system.
+        </p>
+        <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <Link
+            to="/schedule-demo"
+            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300"
+          >
+            Schedule a Demo
+          </Link>
+          <Link
+            to="/get-started"
+            className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300"
+          >
+            Get Started
+          </Link>
+        </div>
+      </div>
+    </section>
   );
 };
 
-export default Home;
+export default HeroSection;
