@@ -7,11 +7,14 @@ const doctorSchema = new mongoose.Schema({
     ref: 'User', 
     required: true 
   },  // Refers to the user who is the doctor
+  name: { type: String, required: true },
+  profileImg: { type: String },
+  timing: { type: String },
   specialization: { type: String, required: true },
-  contactInfo: {
+  gender: { type: String, enum: ['male', 'female', 'other'], required: true },
     phone: { type: String, required: true },
-    address: { type: String }
-  },
+    address: { type: String },
+  
   clinicName: { type: String },
   appointments: [{
     type: Schema.Types.ObjectId, 

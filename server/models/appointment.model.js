@@ -28,7 +28,7 @@ const appointmentSchema = new mongoose.Schema({
     currency: { type: String, default: 'USD' },  // Currency of the payment, default USD
     method: { 
       type: String, 
-      enum: ['credit card', 'cash', 'insurance', 'debit card', 'mobile payment'], 
+      enum: ['card', 'cash', 'insurance', 'debit card', 'mobile payment'], 
       required: true 
     },  // Payment method used by the patient
     status: { 
@@ -37,7 +37,7 @@ const appointmentSchema = new mongoose.Schema({
       default: 'pending' 
     },  // Payment status
     transactionId: { type: String },  // ID from payment gateway (e.g., Stripe, PayPal)
-    paymentDate: { type: Date },  // Date the payment was made
+    paymentDate: { type: Date, default: Date.now },  // Date the payment was made
     paymentGateway: { 
       type: String, 
       enum: ['Stripe', 'PayPal', 'Cash', 'Insurance'], 

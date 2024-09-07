@@ -1,5 +1,8 @@
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); // Make sure to add your Stripe secret key
 const User = require('../models/user.model'); // Assuming User model is in the models directory
-const Patient = require('../models/patient.model'); 
+const Appointment = require('../models/appointment.model'); // Assuming you have the Appointment model
+const Patient = require('../models/patient.model');
+const Doctor = require('../models/doctor.model');
 const uploadOnCloudinary = require('../config/cloudinaryConfig'); // Assuming this is a custom utility for Cloudinary
 const { generateToken, verifyToken } = require('../utilies/JWT'); // Assuming you have a utility for token generation
 const nodemailer = require('nodemailer');
@@ -92,7 +95,92 @@ if(!id) return res.status(400).send("ID is required")
         res.status(400).json(error)
     }
  }
-const bookAppointment = async (req, res) => { }
-const getPatientAppointments = async (req, res) => { }
+
+const bookAppointment = async (req, res) => {
+  try {
+    const { patientId, doctorId, dateTime, payment } = req.body;
+    // console.log(patientId, doctorId, dateTime, payment);
+    
+    // Check if the patient exists
+    const patient = await Patient.findById(patientId);
+    if (!patient) {
+      return res.status(404).json({ error: 'Patient not found' });
+    }
+
+    // Check if the doctor exists
+    const doctor = await Doctor.findById(doctorId);
+    if (!doctor) {
+      return res.status(404).json({ error: 'Doctor not found' });
+    }
+
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount:Math.round(payment.amount * 100),
+        currency:payment.currency || 'USD',
+        automatic_payment_methods: {
+          enabled: true,
+          allow_redirects: 'never', // Optional: Disable redirects
+        },
+      });
+  
+      if (payment.method === 'cash') {
+      // Cash payment logic
+      paymentStatus = 'pending'; // Payment will be collected at the time of the appointment
+    } 
+
+    // Create the appointment
+    const appointment = new Appointment({
+      patientId,
+      doctorId,
+      dateTime,
+      status: 'scheduled',
+
+      payment: {
+        amount: payment.amount,
+        currency: payment.currency || 'USD',
+        method: payment.method,
+        status: "pending",
+        paymentGateway: payment.method === 'card' ? 'Stripe' : 'Cash'
+      },
+      
+    });
+
+    // Save the appointment
+    await appointment.save();
+
+    // Send success response
+    res.status(201).json({ message: 'Appointment booked successfully', appointment , client_secret:paymentIntent.client_secret });
+
+  } catch (error) {
+    console.error('Error booking appointment:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+const getPatientAppointments = async (req, res) => {
+  try {
+    const { patientId } = req.params;
+
+    // Check if the patient exists
+    const patient = await Patient.findById(patientId);
+    if (!patient) {
+      return res.status(404).json({ error: 'Patient not found' });
+    }
+
+    // Find all appointments for this patient
+    const appointments = await Appointment.find({ patientId }).populate('doctorId', 'name specialization');
+
+    // If no appointments found, return a message
+    if (!appointments || appointments.length === 0) {
+      return res.status(404).json({ message: 'No appointments found for this patient' });
+    }
+
+    // Send a success response with the appointments
+    res.status(200).json({ appointments });
+  } catch (error) {
+    console.error('Error fetching patient appointments:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
 
 module.exports = { createPatient, getPatients, getPatientById, deletePatient, bookAppointment, getPatientAppointments } 

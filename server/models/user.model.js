@@ -13,7 +13,7 @@ const userSchema = new Schema({
   
   userType: {
     type: String,
-    enum: ['doctor ', 'patient', 'admin'],
+    enum: ['doctor', 'patient', 'admin'],
     default: 'patient',
   },
   dateJoined: { type: Date, default: Date.now },
