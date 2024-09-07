@@ -19,20 +19,7 @@ const HeroSection = () => {
         <p className="text-lg md:text-xl text-center mb-6">
           Streamline hospital operations, enhance patient care, and improve efficiency with our comprehensive management system.
         </p>
-        <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <Link
-            to="/schedule-demo"
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300"
-          >
-            Schedule a Demo
-          </Link>
-          <Link
-            to="/get-started"
-            className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300"
-          >
-            Get Started
-          </Link>
-        </div>
+       
       </div>
     </section>
   );

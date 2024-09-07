@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 import About from '@/components/LandingPage/About'
 import Blogs from '@/components/LandingPage/Blogs'
 import Doctors from '@/components/LandingPage/Doctors'
@@ -10,6 +11,10 @@ import { Home } from 'lucide-react'
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 
+=======
+import React from 'react'
+import { Outlet } from 'react-router-dom'
+>>>>>>> 11058b85233d04cdc227bb975a5298b45c706150
 
 const HomeLayout = () => {
   return (
