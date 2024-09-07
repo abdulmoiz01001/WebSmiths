@@ -2,6 +2,8 @@ require('dotenv').config()
 const mongoose = require("mongoose")
 const express = require('express');
 const cookieParser = require("cookie-parser");
+const UserRoutes = require('./routes/user.routes');
+const adminRoutes = require('./routes/admin.routes');
 const cors = require('cors');
 const expressLayout = require("express-ejs-layouts");
 const app = express();
@@ -36,9 +38,9 @@ app.use(expressLayout);
 app.set("layout", './layout/main');
 app.set('view engine', "ejs");
 
-// app.use("/api", UserRoutes);
-// app.use("/api", ProductRoutes);
-// app.use("/api", OrderRoutes);
+app.use("/api", UserRoutes);
+// app.use("/api", adminRoutes);
+// app.use("/api", doctorRoutes);
 
 
 
